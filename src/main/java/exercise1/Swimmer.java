@@ -6,4 +6,6 @@ package exercise1;
  * @version 2019.10.21
  */
 public interface Swimmer {
+    //A method that returns the swimming features
+    public String swim();
 }
