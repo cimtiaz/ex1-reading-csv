@@ -19,6 +19,18 @@ public class Animal {
     private String birthYear;
 
     /**
+     * Constructor: Create an instance of Animal class
+     * @param type A String holding the type of animal
+     * @param name A String holding the name of animal
+     * @param birthYear A String holding the 4-digit year of birth
+     */
+    public Animal(String type, String name, String birthYear) {
+        this.type = type;
+        this.name = name;
+        this.birthYear = setBirthYear(birthYear)?birthYear:"0000";
+    }
+
+    /**
      * Return the type of animal
      * @return The animal type as a String
      */
@@ -82,6 +94,14 @@ public class Animal {
     @Override
     public String toString() {
         return (name + "," + type + "," + birthYear);
+    }
+
+    /**
+     * This method returns an introduction of the animal
+     * @return String containing the short introduction of the animal
+     */
+    public String speak(){
+        return ("My name is " + name +", I am a " + type + " and I was born in " + birthYear + ".");
     }
 
 }
