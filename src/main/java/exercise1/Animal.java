@@ -93,7 +93,7 @@ public class Animal {
      */
     @Override
     public String toString() {
-        return (name + "," + type + "," + birthYear);
+        return (type + "," + name + "," + birthYear);
     }
 
     /**
