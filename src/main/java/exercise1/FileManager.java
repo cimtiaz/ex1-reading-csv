@@ -1,9 +1,12 @@
 package exercise1;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -88,12 +91,24 @@ public class FileManager {
         //Exit if this method is called with empty collection
         if (!isAnimalsHasData()) return;
 
-        System.out.println("\n>>>Printing Animal data from CSV file");
+        System.out.println("\n>>>Printing Animal data from animals collection");
         for(Animal record : animals) {
             System.out.println(record);
         }
     }
 
+    /**
+     * Display the data in animals collection sorted by name
+     */
+    public void printAnimalsListSortByName() {
+        //Exit if this method is called with empty collection
+        if (!isAnimalsHasData()) return;
+
+        System.out.println("\n>>>Printing Animal data sorted by name from animals collection");
+        animals.stream()
+                .sorted(Comparator.comparing(Animal::getName))
+                .forEach(System.out::println);
+    }
 
     /**
      * To check if animals collection has any data or it is empty
