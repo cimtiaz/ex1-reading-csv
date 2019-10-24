@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 public class FileManager {
     // An ArrayList to hold the list of all animals
     private ArrayList<Animal> animals;
+    // A HashMap of animal types
+    private HashMap<String,String> animalTypes;
     // How many fields are expected.
     private final int NUMBER_OF_FIELDS = 3;
     // Index values for the fields in each record.
@@ -31,6 +34,24 @@ public class FileManager {
      */
     public FileManager() {
         animals = null;
+        animalTypes = new HashMap<>();
+        fillAnimalTypes();
+    }
+
+    /**
+     * A method to fill the animal types in animalType HashMap
+     */
+    public void fillAnimalTypes() {
+        animalTypes.put("bengal cat","Cat");
+        animalTypes.put("german shepherd","Dog");
+        animalTypes.put("golden retriever","Dog");
+        animalTypes.put("dolphin","Fish");
+        animalTypes.put("duck","Duck");
+        animalTypes.put("chicken","Bird");
+        animalTypes.put("arabian horse","Horse");
+        animalTypes.put("great white shark","Fish");
+        animalTypes.put("parakeet","Bird");
+        //animalTypes.put("","");
     }
 
 
@@ -57,10 +78,28 @@ public class FileManager {
                             // An anonymous Animal object will be returned, however
                             // return type is String so, a String will return because
                             // of Animal.toString() method.
-                            return new Animal(type, name, birthYear);
+                            // >>> return new Animal(type, name, birthYear);
+
+                            //UPDATING CODE FOR CREATING CLASSES BASED ON ANIMAL TYPE
+                            switch(animalTypes.get(type)) {
+                                case "Bird":
+                                    return new Bird(type, name, birthYear);
+                                case "Cat":
+                                    return new Cat(type, name, birthYear);
+                                case "Dog":
+                                    return new Dog(type, name, birthYear);
+                                case "Duck":
+                                    return new Duck(type, name, birthYear);
+                                case "Fish":
+                                    return new Fish(type, name, birthYear);
+                                case "Horse":
+                                    return new Horse(type, name, birthYear);
+                                default:
+                                    return new Animal(type, name, birthYear);
+                            }
                         }
                         catch(NumberFormatException e) {
-                            System.out.println(">>>This record ("+ record+") has invalid data, it cannot be added to collection");
+                            System.out.println(">>>This record (" + record + ") has invalid data, it cannot be added to collection");
                             return null;
                         }
                     }
@@ -92,9 +131,14 @@ public class FileManager {
         if (!isAnimalsHasData()) return;
 
         System.out.println("\n>>>Printing Animal data from animals collection");
+
+        animals.stream().forEach(System.out::println);
+        /*
+        REPLACING THE LOOP WITH STREAM FUNCTION
         for(Animal record : animals) {
             System.out.println(record);
         }
+         */
     }
 
     /**
